@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSP Ceramics | Desuung Skilling Program</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+:root {
+  --primary: #c85a32; /* Terracotta / Clay red */
+  --primary-dark: #a14322;
+  --secondary: #1d3557;
+  --bg-light: #f8f6f0; /* Soft warm ceramic background */
+  --text-main: #2b2d42;
+  --text-muted: #6c757d;
+  --white: #ffffff;
+  --border-radius: 12px;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-main);
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+  padding: 1rem 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.logo-dsp {
+  color: var(--primary);
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary);
+  color: var(--white) !important;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  border: 2px solid var(--white);
+  color: var(--white);
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+}
+
+.btn-large {
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+  background: url('https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+}
+
+.hero-content {
+  position: relative;
+  max-width: 700px;
+  margin-left: max(20px, (100vw - 1200px) / 2);
+  padding: 0 20px;
+}
+
+.badge {
+  background: var(--primary);
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-content h1 {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  margin: 1rem 0;
+}
+
+.hero-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 15px;
+}
+
+/* Sections */
+.section {
+  padding: 5rem 20px;
+}
+
+.bg-light {
+  background-color: var(--bg-light);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-subtitle {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Grid & Stats */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-card {
+  background: var(--bg-light);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.stat-card h3 {
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+/* Products Gallery */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-img-holder {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+
+.img-1 { background-image: url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80'); }
+.img-2 { background-image: url('https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80'); }
+.img-3 { background-image: url('https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80'); }
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info .category {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Forms */
+.form-container {
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.form-success {
+  margin-top: 15px;
+  padding: 15px;
+  background: #d4edda;
+  color: #155724;
+  border-radius: 8px;
+}
+
+.hidden { display: none; }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--secondary);
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .grid-2, .stat-cards {
+    grid-template-columns: 1fr;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+/* Trainer Section Styles */
+.trainer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 2rem;
+}
+
+.trainer-card {
+  background: var(--white);
+  padding: 25px 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.trainer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.trainer-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-light);
+  border: 3px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.avatar-initials {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.trainer-card h3 {
+  font-size: 1.25rem;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
+.trainer-role {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.trainer-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.trainer-note {
+  font-style: italic;
+  color: #d9534f !important;
+}
+/* Trainer Cards with Images */
+.trainer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 2rem;
+}
+
+.trainer-card {
+  background: var(--white);
+  padding: 25px 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.trainer-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.trainer-img-wrapper {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 15px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.trainer-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.trainer-card h3 {
+  font-size: 1.25rem;
+  color: var(--secondary);
+  margin-bottom: 4px;
+}
+
+.trainer-role {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  padding: 3px 10px;
+  background: var(--bg-light);
+  border-radius: 12px;
+}
+
+.trainer-role.badge-lead {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.trainer-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+</style>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-dsp">DSP</span> Ceramics
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#courses">Training Modules</a>
+        <a href="#products">Products</a>
+        <a href="#apply" class="btn-primary">Apply Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="badge">Desuung Skilling Program</span>
+      <h1>Mastering the Art of Bhutanese & Modern Ceramics</h1>
+      <p>Empowering De-suups through world-class craftsmanship, modern kilning techniques, and sustainable ceramic production.</p>
+      <div class="hero-buttons">
+        <a href="#apply" class="btn-primary btn-large">Join the Program</a>
+        <a href="#products" class="btn-secondary btn-large">View Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+<!-- Trainers Section -->
+  <section id="trainers" class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Program Leadership & Instruction</span>
+        <h2>Meet Our Master Trainers</h2>
+        <p>Expert ceramicists and master artisans leading the Desuung Skilling Program (DSP) Ceramic Production workshops.</p>
+      </div>
+
+      <div class="trainer-grid">
+        <!-- Kharka Nath Rai -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/kharka-nath-rai.jpg" alt="Kharka Nath Rai" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Kharka+Nath+Rai'">
+          </div>
+          <h3>Kharka Nath Rai</h3>
+          <span class="trainer-role badge-lead">Program Lead</span>
+          <p>Overseeing workshop execution, program curriculum, and operational management of DSP Ceramic Production.</p>
+        </div>
+
+        <!-- Passang Rinzin Sherpa -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/passang-rinzin-sherpa.jpg" alt="Passang Rinzin Sherpa" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Passang+Rinzin+Sherpa'">
+          </div>
+          <h3>Passang Rinzin Sherpa</h3>
+          <span class="trainer-role">Wheel Throwing Master</span>
+          <p>Instructing advanced pottery wheel techniques, vessel shaping, centering, and symmetry mastery.</p>
+        </div>
+
+        <!-- Roshan Mongar -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/roshan-mongar.jpg" alt="Roshan Mongar" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Roshan+Mongar'">
+          </div>
+          <h3>Roshan Mongar</h3>
+          <span class="trainer-role">Wheel Throwing Master</span>
+          <p>Guiding precision wheel-throwing, trimming, structural balance, and technical studio practice.</p>
+        </div>
+
+        <!-- Melam Zangmo -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/melam-zangmo.jpg" alt="Melam Zangmo" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Melam+Zangmo'">
+          </div>
+          <h3>Melam Zangmo</h3>
+          <span class="trainer-role">Glazing Master</span>
+          <p>Specializing in glaze chemistry, color formulation, oxide finishes, and high-temperature kiln firing.</p>
+        </div>
+
+        <!-- Deki Choden -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/deki-choden.jpg" alt="Deki Choden" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Deki+Choden'">
+          </div>
+          <h3>Deki Choden</h3>
+          <span class="trainer-role">Ceramic Jewelry Master</span>
+          <p>Leading miniature ceramic art, fine detailing, wearable ceramic craftsmanship, and ornamental design.</p>
+        </div>
+
+        <!-- Phul Maya Subba -->
+        <div class="trainer-card">
+          <div class="trainer-img-wrapper">
+            <img src="images/phul-maya-subba.jpg" alt="Phul Maya Subba" class="trainer-img" onerror="this.src='https://via.placeholder.com/150?text=Phul+Maya+Subba'">
+          </div>
+          <h3>Phul Maya Subba</h3>
+          <span class="trainer-role">Slip Casting Master</span>
+          <p>Mastering plaster mold fabrication, liquid clay slip preparation, and uniform mass production casting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Showcase & Filter -->
+  <section id="products" class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Crafted by De-suups</span>
+        <h2>Ceramic Gallery</h2>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All Items</button>
+        <button class="filter-btn" data-filter="tableware">Tableware</button>
+        <button class="filter-btn" data-filter="decor">Vases & Decor</button>
+        <button class="filter-btn" data-filter="tea">Tea Sets</button>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid">
+        <div class="product-card" data-category="tableware">
+          <div class="product-img-holder img-1"></div>
+          <div class="product-info">
+            <span class="category">Tableware</span>
+            <h4>Artisanal Stoneware Bowl</h4>
+            <p>High-fired matte finish with traditional glaze touches.</p>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="decor">
+          <div class="product-img-holder img-2"></div>
+          <div class="product-info">
+            <span class="category">Vases & Decor</span>
+            <h4>Earthenware Accent Vase</h4>
+            <p>Hand-thrown vessel inspired by Bhutanese valley contours.</p>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="tea">
+          <div class="product-img-holder img-3"></div>
+          <div class="product-info">
+            <span class="category">Tea Sets</span>
+            <h4>Handcrafted Ceramic Teapot Set</h4>
+            <p>Ergonomic wooden handle with integrated stainless strainer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Form Modal trigger section -->
+  <section id="apply" class="section">
+    <div class="container form-container">
+      <div class="section-header">
+        <h2>Register for Upcoming Batch</h2>
+        <p>Take your first step toward mastering ceramic production.</p>
+      </div>
+      <form id="enrollmentForm" class="form">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label for="did">De-suups ID Number</label>
+          <input type="text" id="did" required placeholder="e.g. DSP-2026-XXXX">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required placeholder="your.email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="experience">Prior Pottery Experience</label>
+          <select id="experience">
+            <option value="none">No experience (Beginner)</option>
+            <option value="intermediate">Basic Clay Handling</option>
+            <option value="advanced">Wheel Throwing / Kiln Operation</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary btn-full">Submit Application</button>
+      </form>
+      <div id="formSuccess" class="form-success hidden">
+        ✓ Application submitted successfully! We will contact you via email shortly.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Desuung Skilling Program (DSP). Ceramic Production Training Division.</p>
+  </footer>
+
+  <script src="Script.js"></script>
+</body>
+</html>
